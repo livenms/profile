@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} - Muyirama Sezerano Liven</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Project Detail Page */
+        .project-detail-page {
+            padding: 120px 0 80px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-button:hover {
+            gap: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .project-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            align-items: start;
+        }
+
+        .project-hero {
+            background: var(--gradient);
+            height: 300px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .project-info {
+            padding: 1rem 0;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .project-status {
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #10b981;
+        }
+
+        .status-prototype {
+            background: #f59e0b;
+        }
+
+        .status-research {
+            background: #6b7280;
+        }
+
+        .project-category {
+            background: var(--light-gray);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Project Details */
+        .project-details {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .project-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .technologies-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-tag {
+            background: var(--light-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .features-list li:before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Project Sidebar */
+        .project-sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .info-value {
+            color: var(--gray);
+        }
+
+        @media (max-width: 992px) {
+            .project-header {
+                grid-template-columns: 1fr;
+            }
+
+            .project-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .project-hero {
+                height: 200px;
+                font-size: 3rem;
+            }
+
+            .project-title {
+                font-size: 2rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="{{ url_for('index') }}" class="logo">Muyirama<span>Liven</span></a>
+            <div class="nav-menu">
+                <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('projects_page') }}" class="nav-link">Projects</a>
+                <a href="{{ url_for('contact') }}" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail-page">
+        <div class="container">
+            <a href="{{ url_for('projects_page') }}" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+
+            <div class="project-header">
+                <div class="project-hero">
+                    <i class="fas fa-{{ project.icon }}"></i>
+                </div>
+                <div class="project-info">
+                    <h1 class="project-title">{{ project.title }}</h1>
+                    <div class="project-meta">
+                        <span class="project-status status-{{ project.status.lower() }}">
+                            {{ project.status }}
+                        </span>
+                        <span class="project-category">{{ project.category }}</span>
+                    </div>
+                    <p class="project-description">{{ project.full_description }}</p>
+                    <div class="project-links">
+                        <a href="{{ project.github }}" class="btn btn-primary" target="_blank">
+                            <i class="fab fa-github"></i> View Code
+                        </a>
+                        <a href="{{ project.demo }}" class="btn btn-secondary" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-details">
+                <div class="project-content">
+                    <h2 class="section-title">Project Details</h2>
+                    
+                    <h3 style="margin-bottom: 1rem; color: var(--dark);">Technologies Used</h3>
+                    <div class="technologies-grid">
+                        {% for tech in project.technologies %}
+                        <span class="tech-tag">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; color: var(--dark);">Key Features</h3>
+                    <ul class="features-list">
+                        {% if project.id == 1 %}
+                        <li>Real-time environmental monitoring (temperature, humidity, soil moisture)</li>
+                        <li>Automated irrigation and climate control</li>
+                        <li>ESP32-CAM integration for visual monitoring</li>
+                        <li>Remote web dashboard and mobile app</li>
+                        <li>JSON data upload to API</li>
+                        <li>Local image recognition capabilities</li>
+                        {% elif project.id == 2 %}
+                        <li>Real-time power consumption measurement</li>
+                        <li>Theft detection through reverse current monitoring</li>
+                        <li>ACS712 and ZMPT101B sensor integration</li>
+                        <li>Relay cutoff for abnormal conditions</li>
+                        <li>JSON data upload to cloud</li>
+                        {% elif project.id == 3 %}
+                        <li>Real-time angle calculation with MPU6050</li>
+                        <li>PID-based motor speed adjustment</li>
+                        <li>Dynamic balance maintenance</li>
+                        <li>L298N motor driver integration</li>
+                        <li>Autonomous navigation capabilities</li>
+                        {% elif project.id == 4 %}
+                        <li>Multi-sensor temperature monitoring (4× DHT22)</li>
+                        <li>Automated heating control via relays</li>
+                        <li>MQTT dashboard integration</li>
+                        <li>Brooding cycle day tracking</li>
+                        <li>Persistent memory through power loss</li>
+                        {% elif project.id == 5 %}
+                        <li>ROS-based autonomous navigation</li>
+                        <li>Voice recognition for order capture</li>
+                        <li>Computer vision for obstacle avoidance</li>
+                        <li>Raspberry Pi integration</li>
+                        <li>Multi-sensor fusion</li>
+                        {% elif project.id == 6 %}
+                        <li>Real-time speed sign detection</li>
+                        <li>OpenCV and TensorFlow Lite integration</li>
+                        <li>Overspeed alert system</li>
+                        <li>Computer vision algorithms</li>
+                        <li>AI-based traffic safety</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="project-sidebar">
+                    <h3 class="section-title">Project Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value">{{ project.status }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Category:</span>
+                        <span class="info-value">{{ project.category }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Technologies:</span>
+                        <span class="info-value">{{ project.technologies|length }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Hardware:</span>
+                        <span class="info-value">
+                            {% if project.id == 1 %}ESP32, Sensors, Relays, ESP32-CAM
+                            {% elif project.id == 2 %}ESP32, ACS712, ZMPT101B
+                            {% elif project.id == 3 %}Arduino, MPU6050, L298N, Motors
+                            {% elif project.id == 4 %}ESP32, DHT22, Relays, RTC
+                            {% elif project.id == 5 %}Raspberry Pi, Sensors, Motors
+                            {% elif project.id == 6 %}Camera, Computer
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Software:</span>
+                        <span class="info-value">
+                            {% if project.id == 1 %}C++, Python, MQTT
+                            {% elif project.id == 2 %}C++, Arduino
+                            {% elif project.id == 3 %}C++, PID Control
+                            {% elif project.id == 4 %}C++, MQTT
+                            {% elif project.id == 5 %}Python, ROS, OpenCV
+                            {% elif project.id == 6 %}Python, OpenCV, TensorFlow
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
